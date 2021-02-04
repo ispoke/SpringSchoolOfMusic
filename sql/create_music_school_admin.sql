@@ -11,7 +11,6 @@ CREATE TABLE `teacher_detail` (
   `instrument_1` varchar(45) DEFAULT NULL,
   `instrument_2` varchar(45) DEFAULT NULL,
   `webpage` varchar(128) DEFAULT NULL,
-  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
@@ -25,7 +24,7 @@ CREATE TABLE `teacher` (
   `email` varchar(45) DEFAULT NULL,
   `teacher_detail_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  
+  KEY `FK_DETAIL_idx` (`teacher_detail_id`),
   CONSTRAINT `FK_TEACHER_DETAIL` FOREIGN KEY (`teacher_detail_id`) 
   REFERENCES `teacher_detail` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -40,7 +39,7 @@ CREATE TABLE `course` (
   `level` varchar(45) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  # keep a unique title for each course e.g 'advanced mandolin'
+  # keep a unique title for each course
   UNIQUE KEY `TITLE_UNIQUE` (`title`),
 
   CONSTRAINT `FK_TEACHER` 
