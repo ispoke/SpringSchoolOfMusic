@@ -77,7 +77,7 @@
 						<td> <a href="${updateTeacherLink}">update</a>
 								|
 							 <a href="${deleteLink}"
-							 	onclick="if (!(confirm('Are you sure you want to delete this teacher?'))) return false">delete</a>
+							 	onclick="if (!(confirm('Are you sure you want to delete this teacher? The teacher cannot be deleted if they are assigned to a course'))) return false">delete</a>
 						</td>					
 					</tr>
 				</c:forEach>  

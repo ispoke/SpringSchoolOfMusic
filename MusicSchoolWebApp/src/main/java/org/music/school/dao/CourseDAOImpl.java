@@ -53,11 +53,6 @@ public class CourseDAOImpl implements CourseDAO {
 			Hibernate.initialize(course.getStudents());  // force initialization of the students collection to avoid a lazyInitializationException
 		}
 		
-//		Query<Course> query = thisSession.createQuery("select crs from Course crs JOIN FETCH crs.students "
-//									+ "where crs.id=:theId", Course.class);
-//		// set parameter on query
-//		query.setParameter("theId", courseId);
-// 		Course course = query.getSingleResult();
 		return course;
 	}
 

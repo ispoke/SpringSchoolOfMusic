@@ -130,10 +130,20 @@ public class TeacherController {
 	public String deleteTeacher(@RequestParam("teacherId") int theId) {
 		
 		Teacher teacher = teacherService.getTeacher(theId);
-		/* Bug: Deleting the teacher using Id does NOT cascade delete the TeacherDetail *
-		 * Try to delete using the Teacher object */
-		//teacherService.deleteTeacher(theId);
-		teacherService.deleteTeacher(teacher);
+		/* Note: Deleting the teacher using Id does NOT cascade delete the TeacherDetail */
+		/* Deleting teacher object cascade deletes the teacherDetail because of CascadeType.ALL */
+		
+		// See if the teacher is appointed to teach courses
+		List<Course> coursesByThisTeacher = teacherService.getCourses(theId);
+		if (coursesByThisTeacher.isEmpty()) {
+			teacherService.deleteTeacher(teacher);
+		}else {
+			System.out.println("YOU CANNOT DELETE A Teacher while they are in active service !!");
+			System.out.println("Assign a different teacher or delete the course(s) they are teaching first");
+			for(Course course: coursesByThisTeacher) {
+				System.out.println("Course: "+ course.getTitle());
+			}
+		}
 		return "redirect:/teacher/list";
 	}
 	
